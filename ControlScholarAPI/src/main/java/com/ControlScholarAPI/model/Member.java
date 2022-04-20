@@ -14,6 +14,12 @@ public class Member {
     private String email;
     private String password;
     private String type;
+    @OneToOne
+    private Library library;
+
+    public Library getLibrary() {
+        return library;
+    }
 
     public Member() {
     }
