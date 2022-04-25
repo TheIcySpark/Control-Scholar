@@ -16,12 +16,6 @@ public class ControlScholarApiApplication {
 		SpringApplication.run(ControlScholarApiApplication.class, args);
 	}
 
-    @Bean
-    CommandLineRunner run(MemberService memberService){
-        return args -> {
-            memberService.saveMember(new Member(1, "TheIcySpark", "Isaac", "Manjarrez", "Leyva", "saacmanjarrez@gmail.com", "password", "student"));
-        };
-    }
 
     @Bean
     PasswordEncoder passwordEncoder(){

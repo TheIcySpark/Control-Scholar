@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class MemberService implements UserDetailsService {
@@ -36,5 +37,9 @@ public class MemberService implements UserDetailsService {
     public Member saveMember(Member member){
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         return memberRepo.save(member);
+    }
+
+    public List<Member> getMembers(){
+        return memberRepo.findAll();
     }
 }

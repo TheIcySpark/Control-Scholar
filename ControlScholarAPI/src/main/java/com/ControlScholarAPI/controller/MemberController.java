@@ -4,13 +4,12 @@ import com.ControlScholarAPI.model.Member;
 import com.ControlScholarAPI.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/a")
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -18,6 +17,11 @@ public class MemberController {
     @PostMapping("/member/add")
     public ResponseEntity<Member>saveMember(@RequestBody Member member){
         return ResponseEntity.ok().body(memberService.saveMember(member));
+    }
+
+    @GetMapping("/members")
+    public ResponseEntity<List<Member>>getMembers(){
+        return ResponseEntity.ok().body(memberService.getMembers());
     }
 
 }
