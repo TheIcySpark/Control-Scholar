@@ -3,6 +3,7 @@ package com.ControlScholarAPI.service;
 import com.ControlScholarAPI.model.Member;
 import com.ControlScholarAPI.repository.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +16,17 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService{
     @Autowired
     private MemberRepo memberRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
+    public MemberService(MemberRepo memberRepo, PasswordEncoder passwordEncoder) {
+        this.memberRepo = memberRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,10 +36,12 @@ public class MemberService implements UserDetailsService {
         }else{
 
         }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(member.getType()));
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new org.springframework.security.core.userdetails.User(member.getUsername(), member.getPassword(), authorities);
     }
+
+
 
     public Member saveMember(Member member){
         member.setPassword(passwordEncoder.encode(member.getPassword()));
