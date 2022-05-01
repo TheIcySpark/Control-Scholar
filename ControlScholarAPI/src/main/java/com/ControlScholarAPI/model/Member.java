@@ -25,7 +25,6 @@ public class Member {
         return learningCenter;
     }
 
-
     public Member() {
     }
 

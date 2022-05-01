@@ -8,7 +8,7 @@ import java.util.Collection;
 public class Library {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private Collection<BookCopies> bookCopies = new ArrayList<>();
     @OneToOne
     private LearningCenter learningCenter;

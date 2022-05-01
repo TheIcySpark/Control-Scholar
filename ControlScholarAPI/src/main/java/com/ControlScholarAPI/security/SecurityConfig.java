@@ -35,11 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+        /**
         http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/Atlacomulco/**").hasAnyAuthority("ROLE_ATLACOMULCO");
-        http.authorizeRequests().antMatchers("/api/Toluca/**").hasAnyAuthority("ROLE_TOLUCA");
+        http.authorizeRequests().antMatchers("/api/atlacomulco/**").hasAnyAuthority("ROLE_ATLACOMULCO");
+        http.authorizeRequests().antMatchers("/api/toluca/**").hasAnyAuthority("ROLE_TOLUCA");
         http.authorizeRequests().antMatchers("/api/atlacomulco/library/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER");
         http.authorizeRequests().antMatchers("/api/toluca/library/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER");
+         **/
         http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
