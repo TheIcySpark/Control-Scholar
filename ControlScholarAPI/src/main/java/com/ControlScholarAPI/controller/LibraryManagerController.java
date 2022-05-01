@@ -1,5 +1,6 @@
 package com.ControlScholarAPI.controller;
 
+import com.ControlScholarAPI.model.Book;
 import com.ControlScholarAPI.model.LibraryManager;
 import com.ControlScholarAPI.service.LibraryManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class LibraryManagerController {
         return ResponseEntity.ok().body(libraryManagerService.saveLibraryManager(libraryManager));
     }
 
-    @GetMapping("/librariesManagers")
+    @GetMapping("/librariesManager/get/all")
     public ResponseEntity<List<LibraryManager>> getLibrariesManagers(){
         return ResponseEntity.ok().body(libraryManagerService.getLibrariesManagers());
     }
@@ -28,4 +29,5 @@ public class LibraryManagerController {
     public void dropLibraryManager(@RequestBody LibraryManager libraryManager){
         libraryManagerService.dropLibraryManager(libraryManager);
     }
+
 }

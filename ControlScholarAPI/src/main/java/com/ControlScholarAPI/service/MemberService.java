@@ -1,7 +1,9 @@
 package com.ControlScholarAPI.service;
 
 import com.ControlScholarAPI.model.Member;
+import com.ControlScholarAPI.model.Role;
 import com.ControlScholarAPI.repository.MemberRepo;
+import com.ControlScholarAPI.repository.RoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +22,8 @@ public class MemberService implements UserDetailsService{
     @Autowired
     private MemberRepo memberRepo;
     @Autowired
+    private RoleRepo roleRepo;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
@@ -37,10 +41,11 @@ public class MemberService implements UserDetailsService{
 
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        member.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
         return new org.springframework.security.core.userdetails.User(member.getUsername(), member.getPassword(), authorities);
     }
-
 
 
     public Member saveMember(Member member){
@@ -50,5 +55,9 @@ public class MemberService implements UserDetailsService{
 
     public List<Member> getMembers(){
         return memberRepo.findAll();
+    }
+
+    public Role saveRole(Role role){
+        return roleRepo.save(role);
     }
 }

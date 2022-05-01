@@ -12,15 +12,14 @@ public class LibraryManager {
     private String maSurname;
     private String email;
     private String password;
-    private String role;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "library_id")
     private Library library;
-
 
     public LibraryManager() {
     }
 
-    public LibraryManager(int id, String username, String name, String paSurname, String maSurname, String email, String password, String role, Library library) {
+    public LibraryManager(int id, String username, String name, String paSurname, String maSurname, String email, String password, Library library) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -28,7 +27,6 @@ public class LibraryManager {
         this.maSurname = maSurname;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.library = library;
     }
 
@@ -86,14 +84,6 @@ public class LibraryManager {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public Library getLibrary() {

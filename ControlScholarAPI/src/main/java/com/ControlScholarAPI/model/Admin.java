@@ -7,14 +7,14 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "learning_center_id")
-    private LearningCenter learningCenter;
     private String name;
     private String paSurname;
     private String maSurname;
     private String email;
     private String role;
+    @ManyToOne
+    @JoinColumn(name = "learning_center_id")
+    private LearningCenter learningCenter;
 
     public Admin() {
     }

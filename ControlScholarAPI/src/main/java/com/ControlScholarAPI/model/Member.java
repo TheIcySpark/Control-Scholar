@@ -1,6 +1,8 @@
 package com.ControlScholarAPI.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Member {
@@ -9,17 +11,20 @@ public class Member {
     private int id;
     private String username;
     private String name;
-    private String pSurname;
-    private String mSurname;
+    private String paSurname;
+    private String maSurname;
     private String email;
     private String password;
-    private String type;
-    @OneToOne
-    private Library library;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "learning_center_id")
+    private LearningCenter learningCenter;
 
-    public Library getLibrary() {
-        return library;
+    public LearningCenter getLearningCenter() {
+        return learningCenter;
     }
+
 
     public Member() {
     }
@@ -28,11 +33,22 @@ public class Member {
         this.id = id;
         this.username = username;
         this.name = name;
-        this.pSurname = pSurname;
-        this.mSurname = mSurname;
+        this.paSurname = pSurname;
+        this.maSurname = mSurname;
         this.email = email;
         this.password = password;
-        this.type = type;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void setLearningCenter(LearningCenter learningCenter) {
+        this.learningCenter = learningCenter;
     }
 
     public String getUsername() {
@@ -41,14 +57,6 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getId() {
@@ -67,20 +75,20 @@ public class Member {
         this.name = name;
     }
 
-    public String getpSurname() {
-        return pSurname;
+    public String getPaSurname() {
+        return paSurname;
     }
 
-    public void setpSurname(String pSurname) {
-        this.pSurname = pSurname;
+    public void setPaSurname(String paSurname) {
+        this.paSurname = paSurname;
     }
 
-    public String getmSurname() {
-        return mSurname;
+    public String getMaSurname() {
+        return maSurname;
     }
 
-    public void setmSurname(String mSurname) {
-        this.mSurname = mSurname;
+    public void setMaSurname(String maSurname) {
+        this.maSurname = maSurname;
     }
 
     public String getEmail() {

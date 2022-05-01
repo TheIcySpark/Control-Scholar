@@ -9,16 +9,16 @@ public class Library {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Book> books = new ArrayList<>();
+    private Collection<BookCopies> bookCopies = new ArrayList<>();
     @OneToOne
     private LearningCenter learningCenter;
 
     public Library() {
     }
 
-    public Library(int id, Collection<Book> books, LearningCenter learningCenter) {
+    public Library(int id, Collection<BookCopies> booksCopies, LearningCenter learningCenter) {
         this.id = id;
-        this.books = books;
+        this.bookCopies = booksCopies;
         this.learningCenter = learningCenter;
     }
 
@@ -30,12 +30,12 @@ public class Library {
         this.id = id;
     }
 
-    public Collection<Book> getBooks() {
-        return books;
+    public Collection<BookCopies> getBookCopies() {
+        return bookCopies;
     }
 
-    public void setBooks(Collection<Book> books) {
-        this.books = books;
+    public void setBookCopies(Collection<BookCopies> bookCopies) {
+        this.bookCopies = bookCopies;
     }
 
     public LearningCenter getLearningCenter() {
