@@ -60,4 +60,8 @@ public class MemberService implements UserDetailsService{
     public Role saveRole(Role role){
         return roleRepo.save(role);
     }
+
+    public Role getRole(String name){
+        return roleRepo.findByName(name);
+    }
 }

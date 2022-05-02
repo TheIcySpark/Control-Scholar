@@ -3,6 +3,7 @@ package com.ControlScholarAPI.controller;
 import com.ControlScholarAPI.constant.LearningCenterLocation;
 import com.ControlScholarAPI.model.Book;
 import com.ControlScholarAPI.model.BookCopies;
+import com.ControlScholarAPI.service.LearningCenterService;
 import com.ControlScholarAPI.service.LibraryManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,11 @@ import java.util.List;
 public class LibraryManagerController {
     @Autowired
     private LibraryManagerService libraryManagerService;
+    
+    // Refactor with this later
+    @Autowired
+    private LearningCenterService learningCenterService;
+
 
     @PostMapping("{center}/book/add")
     public ResponseEntity<Book>saveBook(@PathVariable String center, @RequestBody Book book){

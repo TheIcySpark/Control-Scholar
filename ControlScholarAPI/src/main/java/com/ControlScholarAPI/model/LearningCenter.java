@@ -8,22 +8,22 @@ import javax.persistence.Id;
 @Entity
 public class LearningCenter {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String location;
 
     public LearningCenter() {
     }
 
-    public LearningCenter(int id, String location) {
+    public LearningCenter(Integer id, String location) {
         this.id = id;
         this.location = location;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

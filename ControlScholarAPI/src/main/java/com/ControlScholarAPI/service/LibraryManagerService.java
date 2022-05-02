@@ -5,6 +5,7 @@ import com.ControlScholarAPI.model.BookCopies;
 import com.ControlScholarAPI.model.Library;
 import com.ControlScholarAPI.repository.BookCopiesRepo;
 import com.ControlScholarAPI.repository.BookRepo;
+import com.ControlScholarAPI.repository.LearningCenterRepo;
 import com.ControlScholarAPI.repository.LibraryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,5 @@ public class LibraryManagerService{
     public void dropLibrary(Library library) {
         libraryRepo.delete(library);
     }
-     **/    
+     **/
 }

@@ -8,7 +8,7 @@ import java.util.Collection;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String username;
     private String name;
     private String paSurname;
@@ -25,17 +25,23 @@ public class Member {
         return learningCenter;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Member() {
     }
 
-    public Member(int id, String username, String name, String pSurname, String mSurname, String email, String password, String type) {
+    public Member(Integer id, String name, String paSurname, String maSurname, String email, String password, Collection<Role> roles, LearningCenter learningCenter) {
         this.id = id;
-        this.username = username;
+        this.username = String.valueOf(id);
         this.name = name;
-        this.paSurname = pSurname;
-        this.maSurname = mSurname;
+        this.paSurname = paSurname;
+        this.maSurname = maSurname;
         this.email = email;
         this.password = password;
+        this.roles = roles;
+        this.learningCenter = learningCenter;
     }
 
     public Collection<Role> getRoles() {
@@ -58,7 +64,7 @@ public class Member {
         this.username = username;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
