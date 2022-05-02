@@ -1,7 +1,6 @@
 package com.ControlScholarAPI.controller;
 
 import com.ControlScholarAPI.model.Member;
-import com.ControlScholarAPI.model.Role;
 import com.ControlScholarAPI.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +22,6 @@ public class MemberController {
     @GetMapping("/member/get/all")
     public ResponseEntity<List<Member>>getMembers(){
         return ResponseEntity.ok().body(memberService.getMembers());
-    }
-
-    @PostMapping("/role/save")
-    public ResponseEntity<Role> saveRole(@RequestBody Role role){
-        return ResponseEntity.ok().body(memberService.saveRole(role));
     }
 
 }

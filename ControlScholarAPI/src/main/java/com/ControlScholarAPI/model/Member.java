@@ -9,14 +9,12 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String username;
     private String name;
     private String paSurname;
     private String maSurname;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Collection<Role> roles = new ArrayList<>();
+    private String roles;
     @ManyToOne
     @JoinColumn(name = "learning_center_id")
     private LearningCenter learningCenter;
@@ -32,9 +30,8 @@ public class Member {
     public Member() {
     }
 
-    public Member(Integer id, String name, String paSurname, String maSurname, String email, String password, Collection<Role> roles, LearningCenter learningCenter) {
+    public Member(Integer id, String name, String paSurname, String maSurname, String email, String password, String roles, LearningCenter learningCenter) {
         this.id = id;
-        this.username = String.valueOf(id);
         this.name = name;
         this.paSurname = paSurname;
         this.maSurname = maSurname;
@@ -44,24 +41,16 @@ public class Member {
         this.learningCenter = learningCenter;
     }
 
-    public Collection<Role> getRoles() {
+    public String getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 
     public void setLearningCenter(LearningCenter learningCenter) {
         this.learningCenter = learningCenter;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Integer getId() {

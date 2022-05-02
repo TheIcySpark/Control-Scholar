@@ -1,9 +1,7 @@
 package com.ControlScholarAPI.service;
 
 import com.ControlScholarAPI.model.Member;
-import com.ControlScholarAPI.model.Role;
 import com.ControlScholarAPI.repository.MemberRepo;
-import com.ControlScholarAPI.repository.RoleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,13 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService implements UserDetailsService{
     @Autowired
     private MemberRepo memberRepo;
-    @Autowired
-    private RoleRepo roleRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -34,17 +31,21 @@ public class MemberService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepo.findByUsername(username);
+        Optional<Member> optionalMember = memberRepo.findById(Integer.valueOf(username));
+        Member member = optionalMember.get();
         if(member == null){
             throw new UsernameNotFoundException("User not found in the database");
         }else{
 
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        member.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
-        return new org.springframework.security.core.userdetails.User(member.getUsername(), member.getPassword(), authorities);
+        System.out.println(member.getRoles());
+        String[] roles = member.getRoles().split(" ");
+        for (String role:roles){
+            authorities.add(new SimpleGrantedAuthority(role));
+            System.out.println(role);
+        }
+        return new org.springframework.security.core.userdetails.User(username, member.getPassword(), authorities);
     }
 
 
@@ -57,11 +58,4 @@ public class MemberService implements UserDetailsService{
         return memberRepo.findAll();
     }
 
-    public Role saveRole(Role role){
-        return roleRepo.save(role);
-    }
-
-    public Role getRole(String name){
-        return roleRepo.findByName(name);
-    }
 }
