@@ -24,6 +24,9 @@ public class ControlScholarApiApplication {
     CommandLineRunner run(MemberService memberService, LearningCenterService learningCenterService){
         return args -> {
             learningCenterService.saveLearningCenter(new LearningCenter(null, "Atlacomulco"));
+            learningCenterService.saveLearningCenter(new LearningCenter(null, "Amecameca"));
+            learningCenterService.saveLearningCenter(new LearningCenter(null, "Ecatepec"));
+            learningCenterService.saveLearningCenter(new LearningCenter(null, "Temascaltepec"));
 
             memberService.saveMember(new Member(null, "Isaac", "Manjarrez", "Leyva", "saacmanjarrez@gmail.com",
                     "password", "ROLE_ATLACOMULCO ROLE_LIBRARY_MANAGER", learningCenterService.getLearningCenterById(1)));

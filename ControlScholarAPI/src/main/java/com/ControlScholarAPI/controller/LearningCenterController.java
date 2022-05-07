@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/learningCenter")
 public class LearningCenterController {
     @Autowired
     private LearningCenterService learningCenterService;
@@ -20,12 +20,7 @@ public class LearningCenterController {
         return ResponseEntity.ok().body(learningCenterService.saveLearningCenter(learningCenter));
     }
 
-    @GetMapping("/learningCenter")
-    public ResponseEntity<LearningCenter>getLearningCenterById(@RequestParam int id){
-        return ResponseEntity.ok().body(learningCenterService.getLearningCenterById(id));
-    }
-
-    @GetMapping("/learningCenter/getAll")
+    @GetMapping("/learningCenter/get/all")
     public ResponseEntity<List<LearningCenter>>getLearningCenters(){
         return ResponseEntity.ok().body(learningCenterService.getLearningCenters());
     }

@@ -1,5 +1,6 @@
 package com.ControlScholarAPI.security;
 
+import com.ControlScholarAPI.constant.Roles;
 import com.ControlScholarAPI.filter.CustomAuthenticationFilter;
 import com.ControlScholarAPI.filter.CustomAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         /**
+        for(String roleLocation: Roles.locationRoles){
+            http.authorizeRequests().antMatchers(
+                    "/api/" + roleLocation.split(" ")[0] + "/**").hasAuthority(roleLocation.split(" ")[1]);
+        }
+
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/api/atlacomulco/**").hasAnyAuthority("ROLE_ATLACOMULCO");
         http.authorizeRequests().antMatchers("/api/toluca/**").hasAnyAuthority("ROLE_TOLUCA");

@@ -1,8 +1,8 @@
 package com.ControlScholarAPI.controller;
 
-import com.ControlScholarAPI.constant.LearningCenterLocation;
 import com.ControlScholarAPI.model.Book;
 import com.ControlScholarAPI.model.BookCopies;
+import com.ControlScholarAPI.model.LearningCenter;
 import com.ControlScholarAPI.service.LearningCenterService;
 import com.ControlScholarAPI.service.LibraryManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +16,15 @@ import java.util.List;
 public class LibraryManagerController {
     @Autowired
     private LibraryManagerService libraryManagerService;
-    
+
     // Refactor with this later
     @Autowired
     private LearningCenterService learningCenterService;
 
-
-    @PostMapping("{center}/book/add")
+    @PostMapping("/{center}/book/add")
     public ResponseEntity<Book>saveBook(@PathVariable String center, @RequestBody Book book){
-        if(LearningCenterLocation.learningCenterLocation.contains(center)){
+        List<LearningCenter> a = learningCenterService.getLearningCenters();
+        if(learningCenterService.isCenterInDatabase(center)){
             return ResponseEntity.ok().body(libraryManagerService.saveBook(book));
         }else{
             return (ResponseEntity<Book>) ResponseEntity.notFound();
@@ -36,16 +36,16 @@ public class LibraryManagerController {
         return ResponseEntity.ok().body(libraryManagerService.getBooks());
     }
 
-    @PostMapping("{center}/bookCopies/add")
+    @PostMapping("/{center}/bookCopies/add")
     public ResponseEntity<BookCopies> saveBookCopies(@PathVariable String center, @RequestBody BookCopies bookCopies){
-        if(LearningCenterLocation.learningCenterLocation.contains(center)){
+        if(learningCenterService.isCenterInDatabase(center)){
             return ResponseEntity.ok().body(libraryManagerService.saveBookCopies(bookCopies));
         }else{
             return (ResponseEntity<BookCopies>) ResponseEntity.notFound();
         }
     }
 
-    @GetMapping("bookCopies/get/all")
+    @GetMapping("/bookCopies/get/all")
     public ResponseEntity<List<BookCopies>> getBookCopies(){
         return ResponseEntity.ok().body(libraryManagerService.getBookCopies());
     }

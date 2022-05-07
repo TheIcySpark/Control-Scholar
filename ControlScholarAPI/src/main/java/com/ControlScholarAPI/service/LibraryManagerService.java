@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LibraryManagerService{
+public class LibraryManagerService {
     @Autowired
     private BookCopiesRepo bookCopiesRepo;
     @Autowired
@@ -22,30 +22,29 @@ public class LibraryManagerService{
     private LibraryRepo libraryRepo;
 
 
-    public Book saveBook(Book book){
+    public Book saveBook(Book book) {
         return bookRepo.save(book);
     }
 
-    public List<Book> getBook(String name){
+    public List<Book> getBook(String name) {
         return (List<Book>) bookRepo.findByName(name);
     }
 
-    public List<Book> getBooks(){
+    public List<Book> getBooks() {
         return bookRepo.findAll();
     }
 
-    public BookCopies saveBookCopies(BookCopies bookCopies){
+    public BookCopies saveBookCopies(BookCopies bookCopies) {
         return bookCopiesRepo.save(bookCopies);
     }
 
-    public List<BookCopies> getBookCopies(){
+    public List<BookCopies> getBookCopies() {
         return bookCopiesRepo.findAll();
     }
 
-    public void dropBookCopies(BookCopies bookCopies){
+    public void dropBookCopies(BookCopies bookCopies) {
         bookCopiesRepo.delete(bookCopies);
     }
-
 
     /**
     public Library saveLibrary(Library library){

@@ -27,4 +27,14 @@ public class LearningCenterService {
     public void dropLearningCenter(LearningCenter learningCenter){
         learningCenterRepo.delete(learningCenter);
     }
+
+    public boolean isCenterInDatabase(String center){
+        List<LearningCenter> learningCenters = learningCenterRepo.findAll();
+        for(LearningCenter learningCenter: learningCenters){
+            if(learningCenter.getLocation().equals(center)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
