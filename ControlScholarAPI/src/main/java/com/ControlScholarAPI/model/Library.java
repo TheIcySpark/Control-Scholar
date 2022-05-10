@@ -8,17 +8,14 @@ import java.util.Collection;
 public class Library {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToMany(fetch = FetchType.EAGER)
-    private Collection<BookCopies> bookCopies = new ArrayList<>();
     @OneToOne
     private LearningCenter learningCenter;
 
     public Library() {
     }
 
-    public Library(int id, Collection<BookCopies> booksCopies, LearningCenter learningCenter) {
+    public Library(int id, LearningCenter learningCenter) {
         this.id = id;
-        this.bookCopies = booksCopies;
         this.learningCenter = learningCenter;
     }
 
@@ -28,14 +25,6 @@ public class Library {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Collection<BookCopies> getBookCopies() {
-        return bookCopies;
-    }
-
-    public void setBookCopies(Collection<BookCopies> bookCopies) {
-        this.bookCopies = bookCopies;
     }
 
     public LearningCenter getLearningCenter() {

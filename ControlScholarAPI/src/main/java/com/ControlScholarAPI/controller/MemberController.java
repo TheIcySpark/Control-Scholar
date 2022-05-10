@@ -14,7 +14,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping("{center}/member/add")
+    @PostMapping("{center}/add")
     public ResponseEntity<Member>saveMember(@RequestBody Member member){
         return ResponseEntity.ok().body(memberService.saveMember(member));
     }
@@ -30,10 +30,6 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.saveEnrollSemester(enrollSemester));
     }
 
-    @PostMapping("/{center}/degree/add")
-    public ResponseEntity<Degree> saveDegree(Degree degree){
-        return  ResponseEntity.ok().body(memberService.saveDegree(degree));
-    }
 
     @PostMapping("/{center}/grade/add")
     public ResponseEntity<Grade> saveGrade(Grade grade){

@@ -1,13 +1,12 @@
 package com.ControlScholarAPI.controller;
 
-import com.ControlScholarAPI.model.Book;
-import com.ControlScholarAPI.model.BookCopies;
-import com.ControlScholarAPI.model.LearningCenter;
+import com.ControlScholarAPI.model.*;
 import com.ControlScholarAPI.service.LearningCenterService;
 import com.ControlScholarAPI.service.LibraryManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
 
@@ -48,6 +47,26 @@ public class LibraryManagerController {
     @GetMapping("/bookCopies/get/all")
     public ResponseEntity<List<BookCopies>> getBookCopies(){
         return ResponseEntity.ok().body(libraryManagerService.getBookCopies());
+    }
+
+    @PostMapping("/{center}/library/add")
+    public ResponseEntity<Library>saveLibrary(Library library){
+        return ResponseEntity.ok().body(libraryManagerService.saveLibrary(library));
+    }
+    @PostMapping("/{center}/enrollBookCopies/add")
+    public ResponseEntity<EnrollBookCopies>saveEnrollBookCopies(@RequestBody EnrollBookCopies enrollBookCopies) {
+        return ResponseEntity.ok().body(libraryManagerService.saveEnrollBookCopies(enrollBookCopies));
+    }
+
+
+    @GetMapping("/enrollBookCopies/get/all")
+    public ResponseEntity<List<EnrollBookCopies>>getEnrollBookCopies(){
+        return  ResponseEntity.ok().body(libraryManagerService.getEnrollBookCopies());
+    }
+
+    @GetMapping("/{center}/get/by")
+    public ResponseEntity<List<Book>> getAllBooksByLearningCenter(@PathVariable String center){
+        return ResponseEntity.ok().body(libraryManagerService.getAllBooksByLearningCenter(center));
     }
 
 }

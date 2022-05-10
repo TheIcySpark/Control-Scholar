@@ -7,8 +7,6 @@ public class Degree {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    @OneToMany
-    private Member member;
 
 
 }

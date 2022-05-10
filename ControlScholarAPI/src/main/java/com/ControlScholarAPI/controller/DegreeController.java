@@ -2,10 +2,10 @@ package com.ControlScholarAPI.controller;
 
 import com.ControlScholarAPI.model.Degree;
 import com.ControlScholarAPI.model.Semester;
+import com.ControlScholarAPI.model.Subject;
 import com.ControlScholarAPI.service.DegreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +23,11 @@ public class DegreeController {
     @PostMapping("{center}/semester/add")
     public ResponseEntity<Semester>saveSemester(Semester semester){
         return ResponseEntity.ok().body(degreeService.saveSemester(semester));
+    }
+
+    @PostMapping("{center}/subject/add")
+    public ResponseEntity<Subject>saveSubject(Subject subject){
+        return  ResponseEntity.ok().body(degreeService.saveSubject(subject));
     }
 
 }

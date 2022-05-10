@@ -23,6 +23,12 @@ public class BookCopies {
         this.copies = copies;
     }
 
+    public BookCopies(Integer id, Book book, int copies) {
+        this.id = id;
+        this.book = book;
+        this.copies = copies;
+    }
+
     public Integer getId() {
         return id;
     }
