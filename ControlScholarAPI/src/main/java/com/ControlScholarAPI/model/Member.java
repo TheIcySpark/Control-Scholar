@@ -1,8 +1,6 @@
 package com.ControlScholarAPI.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 public class Member {
@@ -15,6 +13,7 @@ public class Member {
     private String email;
     private String password;
     private String roles;
+    private String curp;
     @ManyToOne
     @JoinColumn(name = "learning_center_id")
     private LearningCenter learningCenter;
@@ -30,7 +29,7 @@ public class Member {
     public Member() {
     }
 
-    public Member(Integer id, String name, String paSurname, String maSurname, String email, String password, String roles, LearningCenter learningCenter) {
+    public Member(Integer id, String name, String paSurname, String maSurname, String email, String password, String roles, String curp, LearningCenter learningCenter) {
         this.id = id;
         this.name = name;
         this.paSurname = paSurname;
@@ -38,7 +37,16 @@ public class Member {
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.curp = curp;
         this.learningCenter = learningCenter;
+    }
+
+    public String getCurp() {
+        return curp;
+    }
+
+    public void setCurp(String curp) {
+        this.curp = curp;
     }
 
     public String getRoles() {

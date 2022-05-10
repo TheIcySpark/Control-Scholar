@@ -3,24 +3,21 @@ package com.ControlScholarAPI.model;
 import javax.persistence.*;
 
 @Entity
-public class EnrollBookCopies {
+public class LearningCenterDegree {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "book_copies_id")
-    private BookCopies bookCopies;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "learning_center_id")
+    @OneToOne
     private LearningCenter learningCenter;
+    @OneToOne
+    private Degree degree;
 
-    public EnrollBookCopies() {
-
+    public LearningCenterDegree() {
     }
 
-    public EnrollBookCopies(Integer id, BookCopies bookCopies, LearningCenter learningCenter) {
+    public LearningCenterDegree(Integer id, LearningCenter learningCenter, Degree degree) {
         this.id = id;
-        this.bookCopies = bookCopies;
         this.learningCenter = learningCenter;
+        this.degree = degree;
     }
 
     public Integer getId() {
@@ -31,19 +28,19 @@ public class EnrollBookCopies {
         this.id = id;
     }
 
-    public BookCopies getBookCopies() {
-        return bookCopies;
-    }
-
-    public void setBookCopies(BookCopies bookCopies) {
-        this.bookCopies = bookCopies;
-    }
-
     public LearningCenter getLearningCenter() {
         return learningCenter;
     }
 
     public void setLearningCenter(LearningCenter learningCenter) {
         this.learningCenter = learningCenter;
+    }
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
     }
 }

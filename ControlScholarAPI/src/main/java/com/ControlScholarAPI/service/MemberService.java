@@ -21,18 +21,9 @@ public class MemberService implements UserDetailsService{
     @Autowired
     private MemberRepo memberRepo;
     @Autowired
-    private EnrollSemesterRepo enrollSemesterRepo;
-    @Autowired
-    private DegreeRepo degreeRepo;
-    @Autowired
-    private GradeRepo gradeRepo;
-    @Autowired
-    private EnrollDegreRepo enrollDegreRepo;
+    private EnrollLearningCenterDegreeRepo enrollLearningCenterDegreeRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
-
 
     public MemberService(MemberRepo memberRepo, PasswordEncoder passwordEncoder) {
         this.memberRepo = memberRepo;
@@ -68,20 +59,12 @@ public class MemberService implements UserDetailsService{
         return memberRepo.findAll();
     }
 
-    public EnrollSemester saveEnrollSemester(EnrollSemester enrollSemester){
-        return enrollSemesterRepo.save(enrollSemester);
+    public EnrollLearningCenterDegree saveEnrollLearningCenterDegree(EnrollLearningCenterDegree enrollDegree){
+        return enrollLearningCenterDegreeRepo.save(enrollDegree);
     }
 
-    public Degree saveDegree(Degree degree){
-        return degreeRepo.save(degree);
-    }
-
-    public Grade saveGrade(Grade grade){
-        return gradeRepo.save(grade);
-    }
-
-    public EnrollDegree saveEnrollDegree(EnrollDegree enrollDegree){
-        return enrollDegreRepo.save(enrollDegree);
+    public Member getMemberByCurp(String curp){
+        return memberRepo.findByCurp(curp);
     }
 
 }
