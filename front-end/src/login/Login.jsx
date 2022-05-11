@@ -19,9 +19,11 @@ export class Login extends Component{
             password : data.password
         }})
             .then(res =>{
-                console.log("xd")
-                console.log(res)
-                console.log(res.headers)
+                if(res.status == 200){
+                    localStorage.setItem('accessToken', 'Bearer ' + res.data)
+                }else{
+                    console.log("Can you stop kidding, just login")
+                }
             })
             .catch(err =>{
                 console.log(err)
