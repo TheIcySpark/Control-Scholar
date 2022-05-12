@@ -22,4 +22,5 @@ public class LearningCenterLocations {
     public static boolean checkIfLocation(String location){
         return locations.contains(location);
     }
+
 }

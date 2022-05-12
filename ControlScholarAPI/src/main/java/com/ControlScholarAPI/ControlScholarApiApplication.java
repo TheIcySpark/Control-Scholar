@@ -29,7 +29,7 @@ public class ControlScholarApiApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:3000/");
+                registry.addMapping("/**").allowedOrigins("http://localhost:3000/").allowedMethods("PUT", "POST", "GET", "DELETE");
             }
         };
     }
@@ -75,9 +75,13 @@ public class ControlScholarApiApplication {
 
 
             libraryManagerService.saveBook(new Book(null, "El unico libro de la uni", "Bob Esponja", "1", "Crustaceo Cascarudo", 2033));
+            libraryManagerService.saveBook(new Book(null, "Ingenieria", "Bob Esponja", "1", "Crustaceo Cascarudo", 2033));
+            libraryManagerService.saveBook(new Book(null, "Psicologia", "Bob Esponja", "1", "Crustaceo Cascarudo", 2033));
 
             libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(0), learningCenterService.getLearningCenters().get(0), 1));
             libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(0), learningCenterService.getLearningCenters().get(1), 2));
+            libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(1), learningCenterService.getLearningCenters().get(1), 10));
+            libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(2), learningCenterService.getLearningCenters().get(1), 20));
             libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(0), learningCenterService.getLearningCenters().get(2), 3));
             libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(0), learningCenterService.getLearningCenters().get(3), 4));
             libraryManagerService.saveBookCopies(new BookCopies(null, libraryManagerService.getBooks().get(0), learningCenterService.getLearningCenters().get(4), 5));

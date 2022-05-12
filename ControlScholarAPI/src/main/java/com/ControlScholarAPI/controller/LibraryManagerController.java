@@ -2,47 +2,58 @@ package com.ControlScholarAPI.controller;
 
 import com.ControlScholarAPI.constant.LearningCenterLocations;
 import com.ControlScholarAPI.model.*;
+import com.ControlScholarAPI.service.LearningCenterService;
 import com.ControlScholarAPI.service.LibraryManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/libraryManager")
+@RequestMapping("/api")
 public class LibraryManagerController {
     @Autowired
     private LibraryManagerService libraryManagerService;
+    @Autowired
+    private LearningCenterService learningCenterService;
 
-    @PostMapping("/{center}/book/add")
-    public ResponseEntity<Book>saveBook(@PathVariable String center, @RequestBody Book book){
+    @PostMapping("/libraryManager/book/add")
+    public ResponseEntity<Book>saveBook(@RequestBody Book book){
+        return ResponseEntity.ok().body(libraryManagerService.saveBook(book));
+    }
+
+    @DeleteMapping("/libraryManager/book/drop")
+    public void dropBook(@RequestBody Book book){
+        libraryManagerService.dropBook(book);
+    }
+
+
+    @PostMapping("/libraryManager/{center}/bookCopies/add")
+    public ResponseEntity<BookCopies>saveBookCopies(@PathVariable String center, @RequestBody BookCopies bookCopies){
         if(LearningCenterLocations.checkIfLocation(center)){
-            return ResponseEntity.ok().body(libraryManagerService.saveBook(book));
+            bookCopies.setLearningCenter(learningCenterService.getLearningCenterByLocation(center));
+            return ResponseEntity.ok().body(libraryManagerService.saveBookCopies(bookCopies));
         }else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/book/get/all")
-    public ResponseEntity<List<Book>>getBooks(){
-        return ResponseEntity.ok().body(libraryManagerService.getBooks());
+    @GetMapping("/libraryManager/{center}/bookCopies/get/all")
+    public ResponseEntity<List<BookCopies>>getBookCopiesFromCenter(@PathVariable String center){
+        return ResponseEntity.ok().body(libraryManagerService.getBookCopiesFromCenter(center));
     }
 
-    @PostMapping("/{center}/bookCopies/add")
-    public ResponseEntity<BookCopies> saveBookCopies(@PathVariable String center, @RequestBody BookCopies bookCopies){
-        return ResponseEntity.ok().body(libraryManagerService.saveBookCopies(bookCopies));
+    @GetMapping("/libraryManager/book/get/all")
+    public ResponseEntity<List<Book>>getBooks(){
+        return ResponseEntity.ok().body(libraryManagerService.getBooks());
     }
 
     @GetMapping("/bookCopies/get/all")
     public ResponseEntity<List<BookCopies>> getBookCopies(){
         return ResponseEntity.ok().body(libraryManagerService.getBookCopies());
-    }
-
-    @PostMapping("/{center}/library/add")
-    public ResponseEntity<Library>saveLibrary(@RequestBody Library library){
-        return ResponseEntity.ok().body(libraryManagerService.saveLibrary(library));
     }
 
 }

@@ -13,9 +13,9 @@ export default class Profile extends Component{
         axios.get('http://localhost:8080/api/member/get/' + localStorage.getItem('id'))
             .then(res =>{
                 if(res.status === 200){
-                    console.log(res.data)
                     this.setState({data: res.data})
                     this.setState({isLoading: false})
+                    localStorage.setItem('location', res.data.learningCenter.location)
                 }
             })
             .catch(err =>{
@@ -44,13 +44,15 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
+                        defaultValue={this.state.data.id}
                         />
                     </div>
                     <div className="form-group">
                         <label>curp</label>
                         <input 
                         type="text" 
-                        className="form-control" 
+                        className="form-control"
+                        defaultValue={this.state.data.curp}
                         />
                     </div>
                     <div className="form-group">
@@ -58,6 +60,7 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
+                        defaultValue={this.state.data.name}
                         />
                     </div>
                     <div className="form-group">
@@ -65,6 +68,7 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
+                        defaultValue={this.state.data.paSurname}
                         />
                     </div>
                     <div className="form-group">
@@ -72,13 +76,7 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>password</label>
-                        <input 
-                        type="password" 
-                        className="form-control" 
+                        defaultValue={this.state.data.maSurname}
                         />
                     </div>
                     <div className="form-group">
@@ -86,6 +84,7 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
+                        defaultValue={this.state.data.roles}
                         />
                     </div>
                     <div className="form-group">
@@ -93,6 +92,7 @@ export default class Profile extends Component{
                         <input 
                         type="text" 
                         className="form-control" 
+                        defaultValue={this.state.data.learningCenter.location}
                         />
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

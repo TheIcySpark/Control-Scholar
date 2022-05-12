@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import {Component} from "react";
 import axios from 'axios';
 import './home.css'
 
-export default class Login extends React.Component{
+export default class Login extends Component{
 
     handleSubmit = e => {
         e.preventDefault()

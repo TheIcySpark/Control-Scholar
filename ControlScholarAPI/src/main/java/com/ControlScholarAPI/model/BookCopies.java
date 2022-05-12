@@ -18,6 +18,10 @@ public class BookCopies {
         return learningCenter;
     }
 
+    public void setLearningCenter(LearningCenter learningCenter){
+        this.learningCenter = learningCenter;
+    }
+
     public Book getBook() {
         return book;
     }
