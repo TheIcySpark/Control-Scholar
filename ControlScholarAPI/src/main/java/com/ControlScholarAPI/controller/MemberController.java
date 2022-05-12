@@ -23,6 +23,11 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.saveMember(member));
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Member>getMember(@PathVariable int id){
+        return ResponseEntity.ok().body(memberService.getById(id));
+    }
+
     @GetMapping("/member/get/all")
     public ResponseEntity<List<Member>>getMembers(){
         return ResponseEntity.ok().body(memberService.getMembers());

@@ -40,7 +40,6 @@ public class MemberService implements UserDetailsService{
 
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        System.out.println(member.getRoles());
         String[] roles = member.getRoles().split(" ");
         for (String role:roles){
             authorities.add(new SimpleGrantedAuthority(role));
@@ -65,6 +64,10 @@ public class MemberService implements UserDetailsService{
 
     public Member getMemberByCurp(String curp){
         return memberRepo.findByCurp(curp);
+    }
+
+    public Member getById(int id){
+        return memberRepo.findById(id);
     }
 
 }

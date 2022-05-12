@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import axios from 'axios';
 import './home.css'
 
-export class Login extends Component{
-    
+export default class Login extends React.Component{
 
     handleSubmit = e => {
         e.preventDefault()
@@ -12,21 +11,23 @@ export class Login extends Component{
             id: this.id,
             password: this.password
         }       
-        console.log(data)
 
         axios.post('http://localhost:8080/api/member/login', null, {params: {
             id: data.id,
             password : data.password
         }})
             .then(res =>{
-                if(res.status == 200){
+                if(res.status === 200){
                     localStorage.setItem('accessToken', 'Bearer ' + res.data)
+                    localStorage.setItem('id', this.id)
+                    this.props.handleLogin()
                 }else{
-                    console.log("Can you stop kidding, just login")
+                    alert("Can you stop kidding, just login")
                 }
             })
             .catch(err =>{
-                console.log(err)
+                document.getElementById("alertDiv").classList.remove("invisible")
+                document.getElementById("alertDiv").classList.add("visible")
             })
     }
     
@@ -56,6 +57,9 @@ export class Login extends Component{
                     />
                     <button className="btn btn-primary button form-control">Login</button>
                 </form>
+                <div id="alertDiv" className="alert alert-warning invisible" role="alert">
+                    Error in credentials
+                </div>
             </div>
         )
     }

@@ -31,7 +31,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
             if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
                 try {
-                    System.out.println("Token inicia con Bearer");
                     String token = authorizationHeader.substring("Bearer ".length());
                     System.out.println(token);
                     Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -46,8 +45,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    System.out.println(SecurityContextHolder.getContext());
-                    System.out.println("Se autentico");
                     filterChain.doFilter(request, response);
                 }catch (Exception e){
                     System.out.println(e.getMessage());
