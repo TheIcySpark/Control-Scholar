@@ -1,18 +1,16 @@
 import { Component } from "react";
 import axios from "axios";
-import Book from "./Book";
+import BookCopies from "./BookCopies";
 
-export default class ViewBooks extends Component{
+export default class ViewBookCopies extends Component{
     constructor(props){
         super(props)
-
         this.state = {isLoading: true, data: undefined}
-
         this.reloadComponent = this.reloadComponent.bind(this)
     }
 
     loadData(){
-        axios.get('http://localhost:8080/api/libraryManager/book/get/all')
+        axios.get('http://localhost:8080/api/libraryManager/'+ localStorage.getItem('location') +'/bookCopies/get/all')
             .then(res =>{
                 if(res.status === 200){
                     this.setState({data: res.data})
@@ -24,18 +22,16 @@ export default class ViewBooks extends Component{
             })
     }
 
+    componentDidMount(){
+        this.loadData()
+    }
 
     reloadComponent(){
         this.setState({isLoading: true})
         this.loadData()
     }
-    
 
-    componentDidMount(){
-        this.loadData()
-    }
-
-    render(){
+    render() {
         if(this.state.isLoading){
             return(
                 <div>
@@ -43,28 +39,24 @@ export default class ViewBooks extends Component{
                 </div>
             )
         }
-
+        let bookCopies = []
         let r = this.reloadComponent
-
-        let books = []
         this.state.data.forEach(function(value, index, array){
-            books.push(
-                <Book 
-                key={index} 
-                defaultValueName = {value.name}
-                defaultValueAuthor = {value.author}
-                defaultValuePublisher = {value.publisher}
-                defaultValueEdition = {value.edition}
-                defaultValueYear = {value.year}
+            bookCopies.push(
+                <BookCopies
+                key={index}
+                defaultValueCopies = {value.copies}
+                defaultValueBook = {value.book.id}
                 defaultValueId = {value.id}
                 reloadComponent = {r}
                 />
+
             )
         })
-        return(
-            <div>
-                {books}
-            </div>
+        return (
+             <div>
+                 {bookCopies}
+             </div>
         )
     }
 }

@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import AddBook from "../main/Book";
-import BookCopiesView from "../main/BookCopiesView";
 import Profile from "../main/Profile";
 import BookCopies from "../main/BookCopies";
-import './loggedInBanner.css'
 import ViewBooks from "../main/ViewBooks";
+import ViewBookCopies from "../main/ViewBookCopies";
+import './loggedInBanner.css'
+import Member from "../main/Member";
+import ViewMembers from "../main/ViewMember";
 
 export default class LoggedInBanner extends Component{
 	constructor(props){
@@ -21,13 +23,17 @@ export default class LoggedInBanner extends Component{
 		if(this.state.bodyComponent === 0){
 			bodyRender = <Profile></Profile>
 		}else if(this.state.bodyComponent === 1){
-			bodyRender = <BookCopiesView></BookCopiesView>
-		}else if(this.state.bodyComponent === 2){
 			bodyRender = <AddBook></AddBook>
-		}else if(this.state.bodyComponent === 3){
+		}else if(this.state.bodyComponent === 2){
 			bodyRender = <ViewBooks></ViewBooks>
-		}else if(this.state.bodyComponent === 4){
+		}else if(this.state.bodyComponent === 3){
 			bodyRender = <BookCopies></BookCopies>
+		}else if(this.state.bodyComponent === 4){
+			bodyRender = <ViewBookCopies></ViewBookCopies>
+		}else if(this.state.bodyComponent === 5){
+			bodyRender = <Member></Member>
+		}else if(this.state.bodyComponent === 6){
+			bodyRender = <ViewMembers></ViewMembers>
 		}
 
         return(
@@ -39,10 +45,12 @@ export default class LoggedInBanner extends Component{
 						</svg>
 					</a>
 					<a className="nav-link" href="#" onClick={() =>{this.handleClickNavBar(0)}}>Profile</a>
-					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(1)}}>Library</a>
-					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(2)}}>Add book</a>
-					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(3)}}>View Books</a>
-					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(4)}}>Add book copies</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(1)}}>Add book</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(2)}}>View Books</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(3)}}>Add book copies</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(4)}}>View book copies</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(5)}}>Add member</a>
+					<a className="nav-link"  href="#" onClick={() =>{this.handleClickNavBar(6)}}>View members</a>
 					<button className="btn btn-danger" onClick={this.props.handleLogout}>Logout</button>
 				</nav>
 				{bodyRender}

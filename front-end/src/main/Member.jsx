@@ -1,13 +1,13 @@
 import { Component } from "react";
 import axios from "axios";
 
-export default class Book extends Component{
+export default class Member extends Component{
     constructor(props){
         super(props)
     }
 
     handleDrop = e =>{
-        axios.delete('http://localhost:8080/api/libraryManager/book/drop',{data:{
+        axios.delete('http://localhost:8080/api/member/' + localStorage.getItem('location') + '/drop',{data:{
             id: this.props.defaultValueId
         }})
             .then(res =>{
@@ -21,16 +21,18 @@ export default class Book extends Component{
     }
 
     handleSubmit = e =>{
-        axios.post('http://localhost:8080/api/libraryManager/book/add',{
+        axios.post('http://localhost:8080/api/member/' + localStorage.getItem('location') + '/add',{
             name: document.getElementById("name").value,
-            author: document.getElementById("author").value,
-            edition: document.getElementById("edition").value,
-            publisher: document.getElementById("publisher").value,
-            year: document.getElementById("year").value
+            paSurname: document.getElementById("paSurname").value,
+            maSurname: document.getElementById("maSurname").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            roles: document.getElementById("roles").value,
+            curp: document.getElementById("curp").value,
         })
             .then(res =>{
                 if(res.status === 200){
-                    alert('Book saved in database')
+                    alert('member saved in database')
                 }
             })
             .catch(err =>{
@@ -64,10 +66,10 @@ export default class Book extends Component{
                         />
                     </div>
                     <div className="form-group">
-                        <label>Author</label>
+                        <label>paternal surname</label>
                         <input 
                         disabled={disabled}
-                        id="author"
+                        id="paSurname"
                         type="text"
                         className="form-control"
                         required
@@ -75,10 +77,10 @@ export default class Book extends Component{
                         />
                     </div>
                     <div className="form-group">
-                        <label>Edition</label>
+                        <label>maternal surname</label>
                         <input 
                         disabled={disabled}
-                        id="edition"
+                        id="maSurname"
                         type="text"
                         className="form-control"
                         required
@@ -86,10 +88,10 @@ export default class Book extends Component{
                         />
                     </div>
                     <div className="form-group">
-                        <label>Publisher</label>
+                        <label>email</label>
                         <input 
                         disabled={disabled}
-                        id="publisher"
+                        id="email"
                         type="text"
                         className="form-control"
                         required
@@ -97,11 +99,33 @@ export default class Book extends Component{
                         />
                     </div>
                     <div className="form-group">
-                        <label>year</label>
+                        <label>password</label>
                         <input 
                         disabled={disabled}
-                        id="year"
-                        type="number"
+                        id="password"
+                        type="text"
+                        className="form-control"
+                        required
+                        defaultValue={this.props.defaultValueYear}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>roles</label>
+                        <input 
+                        disabled={disabled}
+                        id="roles"
+                        type="text"
+                        className="form-control"
+                        required
+                        defaultValue={this.props.defaultValueYear}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>curp</label>
+                        <input 
+                        disabled={disabled}
+                        id="curp"
+                        type="text"
                         className="form-control"
                         required
                         defaultValue={this.props.defaultValueYear}

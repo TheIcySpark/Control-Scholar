@@ -24,40 +24,21 @@ public class LibraryManagerService {
         return bookRepo.save(book);
     }
 
-    public void dropBook(Book book){
-        bookRepo.delete(book);
+    public List<Book> getBooks() {
+        return bookRepo.findAll();
     }
 
     public List<Book> getBook(String name) {
         return (List<Book>) bookRepo.findByName(name);
     }
 
-    public List<Book> getBooks() {
-        return bookRepo.findAll();
+    public void dropBook(Book book){
+        bookRepo.delete(book);
     }
+
 
     public BookCopies saveBookCopies(BookCopies bookCopies) {
         return bookCopiesRepo.save(bookCopies);
-    }
-
-    public List<BookCopies> getBookCopies() {
-        return bookCopiesRepo.findAll();
-    }
-
-    public void dropBookCopies(BookCopies bookCopies) {
-        bookCopiesRepo.delete(bookCopies);
-    }
-
-    public Library saveLibrary(Library library){
-        return libraryRepo.save(library);
-    }
-
-    public List<Library> getLibraries(){
-        return libraryRepo.findAll();
-    }
-
-    public void dropLibrary(Library library) {
-        libraryRepo.delete(library);
     }
 
     public List<BookCopies> getBookCopiesFromCenter(String center){
@@ -69,5 +50,15 @@ public class LibraryManagerService {
         }
         return r;
     }
+
+    public List<BookCopies> getBookCopies() {
+        return bookCopiesRepo.findAll();
+    }
+
+    public void dropBookCopies(BookCopies bookCopies) {
+        bookCopiesRepo.delete(bookCopies);
+    }
+
+
 
 }

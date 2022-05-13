@@ -5,8 +5,6 @@ import './home.css'
 export default class Login extends Component{
 
     handleSubmit = e => {
-        e.preventDefault()
-
         const data = {
             id: this.id,
             password: this.password

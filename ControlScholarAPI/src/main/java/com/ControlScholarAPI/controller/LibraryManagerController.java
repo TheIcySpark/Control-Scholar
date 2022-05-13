@@ -25,6 +25,11 @@ public class LibraryManagerController {
         return ResponseEntity.ok().body(libraryManagerService.saveBook(book));
     }
 
+    @GetMapping("/libraryManager/book/get/all")
+    public ResponseEntity<List<Book>>getBooks(){
+        return ResponseEntity.ok().body(libraryManagerService.getBooks());
+    }
+
     @DeleteMapping("/libraryManager/book/drop")
     public void dropBook(@RequestBody Book book){
         libraryManagerService.dropBook(book);
@@ -43,17 +48,20 @@ public class LibraryManagerController {
 
     @GetMapping("/libraryManager/{center}/bookCopies/get/all")
     public ResponseEntity<List<BookCopies>>getBookCopiesFromCenter(@PathVariable String center){
-        return ResponseEntity.ok().body(libraryManagerService.getBookCopiesFromCenter(center));
+        if(LearningCenterLocations.checkIfLocation(center)){
+            return ResponseEntity.ok().body(libraryManagerService.getBookCopiesFromCenter(center));
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping("/libraryManager/book/get/all")
-    public ResponseEntity<List<Book>>getBooks(){
-        return ResponseEntity.ok().body(libraryManagerService.getBooks());
+    @DeleteMapping("/libraryManager/{center}/bookCopies/drop")
+    public void dropBookCopies(@PathVariable String center, @RequestBody BookCopies bookCopies){
+        if(LearningCenterLocations.checkIfLocation(center)){
+            libraryManagerService.dropBookCopies(bookCopies);
+        }
     }
 
-    @GetMapping("/bookCopies/get/all")
-    public ResponseEntity<List<BookCopies>> getBookCopies(){
-        return ResponseEntity.ok().body(libraryManagerService.getBookCopies());
-    }
+
 
 }

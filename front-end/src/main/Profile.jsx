@@ -10,7 +10,7 @@ export default class Profile extends Component{
     }
 
     componentDidMount(){
-        axios.get('http://localhost:8080/api/member/get/' + localStorage.getItem('id'))
+        axios.get('http://localhost:8080/api/memberNotSecure/get/' + localStorage.getItem('id'))
             .then(res =>{
                 if(res.status === 200){
                     this.setState({data: res.data})
@@ -34,22 +34,18 @@ export default class Profile extends Component{
                     <div className="form-group">
                         <label>Email address</label>
                         <input 
+                        disabled
+                        required
                         type="email"
                         className="form-control"
                         defaultValue={this.state.data.email}
                         />
                     </div>
                     <div className="form-group">
-                        <label>id</label>
-                        <input 
-                        type="text" 
-                        className="form-control" 
-                        defaultValue={this.state.data.id}
-                        />
-                    </div>
-                    <div className="form-group">
                         <label>curp</label>
                         <input 
+                        disabled
+                        required
                         type="text" 
                         className="form-control"
                         defaultValue={this.state.data.curp}
@@ -58,6 +54,8 @@ export default class Profile extends Component{
                     <div className="form-group">
                         <label>name</label>
                         <input 
+                        disabled
+                        required
                         type="text" 
                         className="form-control" 
                         defaultValue={this.state.data.name}
@@ -66,6 +64,8 @@ export default class Profile extends Component{
                     <div className="form-group">
                         <label>paternal surname</label>
                         <input 
+                        required
+                        disabled
                         type="text" 
                         className="form-control" 
                         defaultValue={this.state.data.paSurname}
@@ -74,28 +74,23 @@ export default class Profile extends Component{
                     <div className="form-group">
                         <label>maternal surname</label>
                         <input 
+                        required
+                        disabled
                         type="text" 
                         className="form-control" 
                         defaultValue={this.state.data.maSurname}
                         />
                     </div>
                     <div className="form-group">
-                        <label>roles</label>
-                        <input 
-                        type="text" 
-                        className="form-control" 
-                        defaultValue={this.state.data.roles}
-                        />
-                    </div>
-                    <div className="form-group">
                         <label>learning center location</label>
                         <input 
+                        disabled
+                        required
                         type="text" 
                         className="form-control" 
                         defaultValue={this.state.data.learningCenter.location}
                         />
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         )

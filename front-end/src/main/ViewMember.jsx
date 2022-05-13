@@ -2,7 +2,7 @@ import { Component } from "react";
 import axios from "axios";
 import Book from "./Book";
 
-export default class ViewBooks extends Component{
+export default class ViewMembers extends Component{
     constructor(props){
         super(props)
 

@@ -13,7 +13,6 @@ export default class BookCopies extends Component{
                 if(res.status === 200){
                     this.setState({data: res.data})
                     this.setState({isLoading: false})
-                    console.log(res.data)
                 }
             })
             .catch(err =>{
@@ -22,13 +21,12 @@ export default class BookCopies extends Component{
     }
 
     handleDrop = e =>{
-        axios.delete('http://localhost:8080/api/libraryManager/book/drop',{data:{
+        axios.delete('http://localhost:8080/api/libraryManager/' + localStorage.getItem('location') +'/bookCopies/drop',{data:{
             id: this.props.defaultValueId
         }})
             .then(res =>{
                 if(res.status === 200){
-                    this.setState({data: res.data})
-                    alert('Book deleted')
+                    this.props.reloadComponent()
                 }
             })
             .catch(err =>{
@@ -37,10 +35,9 @@ export default class BookCopies extends Component{
     }
 
     handleSubmit = e =>{
-        alert(this.book)
         axios.post('http://localhost:8080/api/libraryManager/' + localStorage.getItem('location') + '/bookCopies/add',{
-            copies: this.copies,
-            book: {id: this.book}
+            copies: document.getElementById("copies").value,
+            book: {id: document.getElementById("book").value}
         })
             .then(res =>{
                 if(res.status === 200){
@@ -61,37 +58,49 @@ export default class BookCopies extends Component{
             )
         }
 
+
         let dropButton
+        let submitButton
+        let disabled 
         if(this.props.defaultValueId){
             dropButton = <button className="btn btn-danger" onClick={this.handleDrop}>drop</button>
+            disabled = true
+        }else{
+            submitButton = <button type="submit" className="btn btn-primary">Submit</button>
+            disabled = false
         }
 
         let options = []
         this.state.data.forEach(function(value, index, array){
             options.push(
-                <option value = {value.id}>{value.name}</option>
+                <option key={index} value = {value.id}>{value.name}</option>
             )
         })
 
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
+                    <div className="form-group" >
                         <label>Copies number</label>
                         <input 
+                        disabled={disabled}
+                        id = "copies"
                         type="text"
                         className="form-control"
-                        onChange={e => this.copies = e.target.value}
+                        required
                         defaultValue={this.props.defaultValueCopies}
                         />
                     </div>
                     <div className="form-group">
                         <label>Book: </label>
-                        <select onChange={e => this.book = e.target.value}>
+                        <select 
+                        disabled={disabled}
+                        id="book" 
+                        defaultValue={this.props.defaultValueBook}>
                             {options}
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {submitButton}
                 </form>
                 {dropButton}
             </div>
