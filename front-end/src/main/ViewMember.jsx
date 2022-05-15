@@ -1,6 +1,6 @@
 import { Component } from "react";
 import axios from "axios";
-import Book from "./Book";
+import Member from "./Member";
 
 export default class ViewMembers extends Component{
     constructor(props){
@@ -12,7 +12,7 @@ export default class ViewMembers extends Component{
     }
 
     loadData(){
-        axios.get('http://localhost:8080/api/libraryManager/book/get/all')
+        axios.get('http://localhost:8080/api/admin/' + localStorage.getItem('location') +'/member/get/all')
             .then(res =>{
                 if(res.status === 200){
                     this.setState({data: res.data})
@@ -46,16 +46,17 @@ export default class ViewMembers extends Component{
 
         let r = this.reloadComponent
 
-        let books = []
+        let members = []
         this.state.data.forEach(function(value, index, array){
-            books.push(
-                <Book 
+            members.push(
+                <Member
                 key={index} 
                 defaultValueName = {value.name}
-                defaultValueAuthor = {value.author}
-                defaultValuePublisher = {value.publisher}
-                defaultValueEdition = {value.edition}
-                defaultValueYear = {value.year}
+                defaultValuePaSurname = {value.paSurname}
+                defaultValueMaSurname = {value.maSurname}
+                defaultValueEmail = {value.email}
+                defaultValueRoles = {value.roles}
+                defaultValueCurp = {value.curp}
                 defaultValueId = {value.id}
                 reloadComponent = {r}
                 />
@@ -63,7 +64,7 @@ export default class ViewMembers extends Component{
         })
         return(
             <div>
-                {books}
+                {members}
             </div>
         )
     }

@@ -2,12 +2,9 @@ import { Component } from "react";
 import axios from "axios";
 
 export default class Member extends Component{
-    constructor(props){
-        super(props)
-    }
 
     handleDrop = e =>{
-        axios.delete('http://localhost:8080/api/member/' + localStorage.getItem('location') + '/drop',{data:{
+        axios.delete('http://localhost:8080/api/admin/' + localStorage.getItem('location') + '/member/drop',{data:{
             id: this.props.defaultValueId
         }})
             .then(res =>{
@@ -21,12 +18,11 @@ export default class Member extends Component{
     }
 
     handleSubmit = e =>{
-        axios.post('http://localhost:8080/api/member/' + localStorage.getItem('location') + '/add',{
+        axios.post('http://localhost:8080/api/admin/' + localStorage.getItem('location') + '/member/add',{
             name: document.getElementById("name").value,
             paSurname: document.getElementById("paSurname").value,
             maSurname: document.getElementById("maSurname").value,
             email: document.getElementById("email").value,
-            password: document.getElementById("password").value,
             roles: document.getElementById("roles").value,
             curp: document.getElementById("curp").value,
         })
@@ -51,6 +47,8 @@ export default class Member extends Component{
             submitButton = <button type="submit" className="btn btn-primary">Submit</button>
             disabled = false
         }
+
+
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -73,7 +71,7 @@ export default class Member extends Component{
                         type="text"
                         className="form-control"
                         required
-                        defaultValue={this.props.defaultValueAuthor}
+                        defaultValue={this.props.defaultValuePaSurname}
                         />
                     </div>
                     <div className="form-group">
@@ -84,7 +82,7 @@ export default class Member extends Component{
                         type="text"
                         className="form-control"
                         required
-                        defaultValue={this.props.defaultValueEdition}
+                        defaultValue={this.props.defaultValueMaSurname}
                         />
                     </div>
                     <div className="form-group">
@@ -95,18 +93,7 @@ export default class Member extends Component{
                         type="text"
                         className="form-control"
                         required
-                        defaultValue={this.props.defaultValuePublisher}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>password</label>
-                        <input 
-                        disabled={disabled}
-                        id="password"
-                        type="text"
-                        className="form-control"
-                        required
-                        defaultValue={this.props.defaultValueYear}
+                        defaultValue={this.props.defaultValueEmail}
                         />
                     </div>
                     <div className="form-group">
@@ -117,7 +104,7 @@ export default class Member extends Component{
                         type="text"
                         className="form-control"
                         required
-                        defaultValue={this.props.defaultValueYear}
+                        defaultValue={this.props.defaultValueRoles}
                         />
                     </div>
                     <div className="form-group">
@@ -128,7 +115,7 @@ export default class Member extends Component{
                         type="text"
                         className="form-control"
                         required
-                        defaultValue={this.props.defaultValueYear}
+                        defaultValue={this.props.defaultValueCurp}
                         />
                     </div>
                     {submitButton}

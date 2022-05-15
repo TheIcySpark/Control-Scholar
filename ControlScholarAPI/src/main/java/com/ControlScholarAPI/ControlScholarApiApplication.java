@@ -54,6 +54,8 @@ public class ControlScholarApiApplication {
                     "password", Roles.locationRoles.get(0) + " " + Roles.privilegeRoles.get(0), "MALI1", learningCenterService.getLearningCenters().get(0)));
             memberService.saveMember(new Member(null, "Smith", "Agente", "Matrix", "b@gmail.com",
                     "password", Roles.locationRoles.get(1) + " " + Roles.privilegeRoles.get(0), "MALI2", learningCenterService.getLearningCenters().get(1)));
+            memberService.saveMember(new Member(null, "Smith", "Agente", "Matrix", "b@gmail.com",
+                    "password", Roles.locationRoles.get(1) + " " + Roles.privilegeRoles.get(2), "MALIX1", learningCenterService.getLearningCenters().get(1)));
             memberService.saveMember(new Member(null, "Smith", "Agente", "Matrix", "a@gmail.com",
                     "password", Roles.locationRoles.get(2) + " " + Roles.privilegeRoles.get(0), "MALI3", learningCenterService.getLearningCenters().get(2)));
             memberService.saveMember(new Member(null, "Smith", "Agente", "Matrix", "a@gmail.com",

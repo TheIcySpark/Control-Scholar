@@ -5,6 +5,7 @@ import './home.css'
 export default class Login extends Component{
 
     handleSubmit = e => {
+        e.preventDefault()
         const data = {
             id: this.id,
             password: this.password
@@ -18,6 +19,7 @@ export default class Login extends Component{
                 if(res.status === 200){
                     localStorage.setItem('accessToken', 'Bearer ' + res.data)
                     localStorage.setItem('id', this.id)
+                    axios.defaults.headers.common['Authorization'] = localStorage.getItem('accessToken');
                     this.props.handleLogin()
                 }else{
                     alert("Can you stop kidding, just login")

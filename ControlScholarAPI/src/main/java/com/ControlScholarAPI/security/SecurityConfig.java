@@ -1,5 +1,6 @@
 package com.ControlScholarAPI.security;
 
+import com.ControlScholarAPI.constant.LearningCenterLocations;
 import com.ControlScholarAPI.constant.Roles;
 import com.ControlScholarAPI.filter.CustomAuthenticationFilter;
 import com.ControlScholarAPI.filter.CustomAuthorizationFilter;
@@ -43,19 +44,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/member/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        /**
-        for(String roleLocation: Roles.locationRoles){
-            http.authorizeRequests().antMatchers(
-                    "/api/" + roleLocation.split(" ")[0] + "/**").hasAuthority(roleLocation.split(" ")[1]);
+
+        http.authorizeRequests().antMatchers("/api/member/login").permitAll();
+        http.authorizeRequests().antMatchers("/api/libraryManager/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER", "ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN");
+        int i = 0;
+        while(i <= LearningCenterLocations.locations.size()){
+            http.authorizeRequests().antMatchers("/api/libraryManager/" + LearningCenterLocations.locations.get(i) + "/**").hasAnyAuthority(Roles.locationRoles.get(i));
+            http.authorizeRequests().antMatchers("/api/admin/" + LearningCenterLocations.locations.get(i) + "/**").hasAnyAuthority(Roles.locationRoles.get(i));
         }
 
-        http.authorizeRequests().antMatchers("/login").permitAll();
-        http.authorizeRequests().antMatchers("/api/atlacomulco/**").hasAnyAuthority("ROLE_ATLACOMULCO");
-        http.authorizeRequests().antMatchers("/api/toluca/**").hasAnyAuthority("ROLE_TOLUCA");
-        http.authorizeRequests().antMatchers("/api/atlacomulco/library/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER");
-        http.authorizeRequests().antMatchers("/api/toluca/library/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER");
-         **/
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

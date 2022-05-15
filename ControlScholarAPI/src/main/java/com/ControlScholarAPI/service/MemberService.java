@@ -70,4 +70,18 @@ public class MemberService implements UserDetailsService{
         return memberRepo.findById(id);
     }
 
+    public List<Member>getMembersByLearningCenter(String center){
+        List<Member> r = new ArrayList<>();
+        for(Member m: memberRepo.findAll()){
+            if(m.getLearningCenter().getLocation().equals(center)){
+                r.add(m);
+            }
+        }
+        return r;
+    }
+
+    public void dropMember(Member member){
+        memberRepo.delete(member);
+    }
+
 }

@@ -27,7 +27,9 @@ export default class Book extends Component{
             edition: document.getElementById("edition").value,
             publisher: document.getElementById("publisher").value,
             year: document.getElementById("year").value
-        })
+        }, {headers: {
+            Authorization: localStorage.getItem('accessToken')
+        }})
             .then(res =>{
                 if(res.status === 200){
                     alert('Book saved in database')
