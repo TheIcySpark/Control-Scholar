@@ -49,9 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/libraryManager/**").hasAnyAuthority("ROLE_LIBRARY_MANAGER", "ROLE_ADMIN");
         http.authorizeRequests().antMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN");
         int i = 0;
-        while(i <= LearningCenterLocations.locations.size()){
+        while(i < LearningCenterLocations.locations.size()){
             http.authorizeRequests().antMatchers("/api/libraryManager/" + LearningCenterLocations.locations.get(i) + "/**").hasAnyAuthority(Roles.locationRoles.get(i));
             http.authorizeRequests().antMatchers("/api/admin/" + LearningCenterLocations.locations.get(i) + "/**").hasAnyAuthority(Roles.locationRoles.get(i));
+            i += 1;
         }
 
         http.authorizeRequests().anyRequest().authenticated();
