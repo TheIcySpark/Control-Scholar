@@ -22,7 +22,7 @@ public class MemberController {
 
     @PostMapping("/admin/{center}/member/add")
     public ResponseEntity<Member>saveMember(@PathVariable String center, @RequestBody Member member){
-        if(LearningCenterLocations.checkIfLocation(center)){
+        if(LearningCenterLocations.checkIfLocation(center) && memberService.getMemberByCurp(member.getCurp()) == null){
             member.setLearningCenter(learningCenterService.getLearningCenterByLocation(center));
             // use random or some crazy stuff
             member.setPassword("password");

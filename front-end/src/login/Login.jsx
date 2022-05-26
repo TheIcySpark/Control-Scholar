@@ -36,7 +36,7 @@ export default class Login extends Component{
         return (
             <div className="home-container">
                 <div className="home-banner">
-                    <h1 className="home-text">Damn vulnerable control Schoolar</h1>
+                    <h1 className="home-text">Control Schoolar</h1>
                     <button className="btn btn btn-info button">Contact</button>
                 </div>
                 <br></br>
